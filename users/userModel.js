@@ -3,7 +3,8 @@ const db = require('../data/dbConfig');
 module.exports = {
   getUsers,
   getUserByID,
-  addUser
+  addUser,
+  findBy
 };
 
 //get users
@@ -12,7 +13,12 @@ function getUsers() {
 }
 
 //findBy
-// function findBy(filter)
+function findBy(user) {
+  return db('username_password')
+    .select('id', 'username', 'password')
+    .where('username', user)
+    .first();
+}
 
 //getUserByID --> get single user
 function getUserByID(id) {

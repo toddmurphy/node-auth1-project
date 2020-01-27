@@ -23,8 +23,23 @@ router.post('/register', (req, res) => {
 
 //post --> /api/login
 router.post('/login', (req, res) => {
-  // let {username, password} = req.body;
-  // Users.fi
+  let credentials = req.body;
+
+  Users.findBy(credentials.username)
+    .first()
+    .then(user => {
+      //    login works without compareSync --> user && bc.compareSync(password, user.password
+      if (user && bc.compareSync(credentials.password, user.password)) {
+        //check the password is valid --> if they match it works
+        res.status(200).json({ message: `Welcome ${user.username}!` });
+      } else {
+        res.status(401).json({ message: 'Invalid credentials' });
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({ message: 'Sorry, no login working on the server', error });
+    });
 });
 
 module.exports = router;
