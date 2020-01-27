@@ -8,6 +8,10 @@ const router = express.Router();
 router.post('/register', (req, res) => {
   const newUser = req.body;
 
+  const hash = bc.hashSync(req.body.password, 8);
+
+  newUser.password = hash;
+
   Users.addUser(newUser)
     .then(user => {
       res.status(200).json(user);
@@ -18,6 +22,9 @@ router.post('/register', (req, res) => {
 });
 
 //post --> /api/login
-router.post('/login', (req, res) => {});
+router.post('/login', (req, res) => {
+  // let {username, password} = req.body;
+  // Users.fi
+});
 
 module.exports = router;

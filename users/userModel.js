@@ -11,6 +11,9 @@ function getUsers() {
   return db('username_password');
 }
 
+//findBy
+// function findBy(filter)
+
 //getUserByID --> get single user
 function getUserByID(id) {
   return db('username_password')
