@@ -23,13 +23,13 @@ router.post('/register', (req, res) => {
 
 //post --> /api/login
 router.post('/login', (req, res) => {
-  let credentials = req.body;
+  let { username, password } = req.body;
 
-  Users.findBy(credentials.username)
+  Users.findBy(username)
     .first()
     .then(user => {
       //    login works without compareSync --> user && bc.compareSync(password, user.password
-      if (user && bc.compareSync(credentials.password, user.password)) {
+      if (user && bc.compareSync(password, user.password)) {
         //check the password is valid --> if they match it works
         res.status(200).json({ message: `Welcome ${user.username}!` });
       } else {
