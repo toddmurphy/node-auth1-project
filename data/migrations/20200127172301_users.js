@@ -5,18 +5,14 @@ exports.up = function(knex) {
     tbl
       .string('username', 255)
       .notNullable()
-      .unique()
-      .index()
-      .timestamp(true, true);
+      .unique();
 
-    tbl
-      .string('password', 255)
-      .unique()
-      .notNullable()
-      .timestamp(true, true);
+    tbl.string('password', 255).notNullable();
+
+    tbl.timestamps(true, true);
   });
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists('username');
+  return knex.schema.dropTableIfExists('username_password');
 };
