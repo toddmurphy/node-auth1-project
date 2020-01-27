@@ -2,15 +2,27 @@ const db = require('../data/dbConfig');
 
 module.exports = {
   getUsers,
-  userRegister,
-  userLogin
+  getUserByID,
+  addUser
 };
 
 //get users
-function getUsers() {}
+function getUsers() {
+  return db('username_password');
+}
 
-//post --> register
-function userRegister() {}
+//getUserByID --> get single user
+function getUserByID(id) {
+  return db('username_password')
+    .where('id', id)
+    .first();
+}
 
-//post --> login
-function userLogin() {}
+//addUser --> create a new user
+function addUser(user) {
+  return db('username_password')
+    .insert(user, 'id')
+    .then(ids => {
+      return getUserByID(ids[0]);
+    });
+}
