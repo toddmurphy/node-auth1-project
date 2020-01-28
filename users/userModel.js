@@ -32,6 +32,7 @@ function addUser(user) {
   return db('username_password')
     .insert(user, 'id')
     .then(ids => {
+      console.log(ids);
       return getUserByID(ids[0]);
     });
 }
